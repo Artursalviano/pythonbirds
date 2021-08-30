@@ -5,7 +5,7 @@ class Pessoa:
         self.nome = nome
         self.filhos = list(filhos)
     def comprimentar(self):
-        return f'Olá {id(self)}'
+        return f'Olá, meu nome é {self.nome}'
     @staticmethod
     def metodo_estatico():
         return 42
@@ -14,10 +14,18 @@ class Pessoa:
     def nome_e_atributos_de_classe(cls):
         return f'{cls} - olhos {cls.olhos}'
 
+class Homem(Pessoa):
+    def comprimentar(self):
+        comprimentar_da_casse= super().comprimentar()
+        return f'{comprimentar_da_casse} - Aperto de mão'
+
+class Mutante(Pessoa):
+    olhos = 3
+
 if __name__ == '__main__':
-    iury = Pessoa(nome ='Iury')
+    iury = Mutante(nome ='Iury')
     ana = Pessoa( nome = 'Ana')
-    artur = Pessoa(ana,iury, nome ='Artur')
+    artur = Homem(nome ='Artur')
     
     print(Pessoa.comprimentar(iury))
     print(id(iury))
@@ -25,7 +33,6 @@ if __name__ == '__main__':
     print(iury.nome)
     for filho in artur.filhos:
         print(filho.nome)
-    iury.olhos = 1
     print(artur.__dict__)
     print(iury.__dict__)
     
@@ -35,3 +42,10 @@ if __name__ == '__main__':
     print(id(Pessoa.olhos), id(iury.olhos),id(artur.olhos))
     print(Pessoa.metodo_estatico(), iury.metodo_estatico())
     print(Pessoa.nome_e_atributos_de_classe(), iury.nome_e_atributos_de_classe())
+    pessoa = Pessoa('Anonimo')
+    print(isinstance(pessoa, Pessoa))
+    print(isinstance(pessoa, Homem))
+    print(isinstance(iury, Pessoa))
+    print(iury.olhos)
+    print(iury.comprimentar())
+    print(artur.comprimentar())
